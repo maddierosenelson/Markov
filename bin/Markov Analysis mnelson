@@ -1,0 +1,305 @@
+Markov Analysis Maddie Nelson (mrn14)
+Part A: Brute Force vs Map
+
+In these questions, you will examine how the k-value/order of the model, the length 
+of the training text, and the number of letter/work generated affect the runtime
+for both the BruteTextGenerator and the MapTextGenerator.
+
+1.Form a hypothesis about how each of the following three factors should affect 
+the runtime of BruteGenerator and MapGenerator in big-O notation and explain your 
+reasoning by referencing segments of your code.
+
+a)the length of the training text
+	For Brute Generator, I think the length of the training text will affect the big-o notation
+	because the longer the training text, the more times the Brute Generator will have to run the 
+	loop starting on line 29. For example if the training text is only 5 NGrams, the loop on 29
+	will occur 5 times, but if the training text is 10 NGrams, this loop will have to occur 10 times.
+	Thus for the Brute Generator, the length of the training text does affect the big-o notation.
+
+	Map Generator is different because regardless of how many NGrams exist in the text, they will each
+	only be looked at once, because each time the current NGram and the one directly after it are
+	added to the map we created. Thus changing the length of the training text and thus the number 
+	of NGrams to be looked at will not change the big-o notation signigicantly, but we can
+	expect small increases due to the increased number of NGrams we must map.
+	
+	As the length of the training text increases, we will see increases in time for both Map
+	and Brute, but much larger increases for Brute.
+
+b)the k-value or length of the word
+	I think that the k-value or length of the word will have an effect on the big-O notation
+	of the Brute Generator, because the Brute Generator goes through the entire training text
+	for each word, thus the smaller the k-value, the more words or NGrams the text will contain
+	and the larger the big-O notation will be. For example, with the Brute Generator, if the
+	k value is 3 for the Text "acvavcvcsvcs" which has a length of 12, the Brute Generator will
+	go through the for loop starting on line 29 of my code four times because the input length
+	will equal four. If the k value was 6, then the o-notation would be smaller because the 
+	Brute Generator would only go through the loop twice. Therefore, because the k-value
+	determines the length of the training text, this affects the big-o notation.
+	
+	The k-value will not have as large an effect on the Map Generator big-o notation, because 
+	regardless of how many NGrams exist in the text, the Map Generator only goes through 
+	once to see what NGrams follow the seed. Thus if we look at the example above with the 
+	text "acvavcvcsvcs," there will not be a significant difference in big-O notation for a 
+	k-value of 3 versus a k-value of 6, because
+	the Map Generator only needs to look at each NGram once. However, even though this difference
+	will not be very significant, we will still expect the smaller k-values to have slightly longer 
+	times, but the overall change will not be as noticeable.
+	Therefore even though the k-value determines the length of the training text, this will not illicit
+	as much of an increase as it will for Brute.
+	As the k-value decreases, we will see increases in time for both Map
+	and Brute, but much larger increases for Brute.
+	
+c)the length of the random text
+	As we discussed in parts a and b, changes in the length of the training text and the k-value/
+	length of the word affect the big-o notation for Brute Generator but not for Map Generator.
+	The length of the random text does not tell us much about how long the program will take 
+	because the k-value will determine the length of the training text. However, it would make
+	sense that the longer the random text, the longer it will take to generate our new text(if
+	the k-value is fairly small). 
+	This will certainly be true with Brute Generator, because if the random text is long and the
+	k-value is small, then the number of times the loop on line 29 will need to be run is 
+	larger. However, if the random text is large and the k-value is also large, this could
+	result in the equivalent training text length of a small random text and a small k-value.
+	Thus simply knowing the length of the random text is not enough information for us to 
+	know how the big-o notation of the Brute generator will change.
+	If we know that the random text is long and the k-value is small than the big-o 
+	notation could increase. If the random text is long and the k-value is large, we will
+	see a smaller big-o notation than the previous hypothetical situation.
+	A small random text with a large k-value will have a smaller big-o notation than 
+	a small random text with a small k-value.
+
+	The map generator once again will not be affected as much by the length of the random text
+	because the map will only be made once, regardless of the length. However, even though the map
+	is only made once, we will still expect a longer running time from a random text of length
+	2000 than from a random text of 20.
+	As the length of the random text increases (and k decreases or stays constant), we will see increases in 
+	time for both Map and Brute, but much larger increases for Brute.
+	
+2)Run the Benchmark class on both BruteGenerator and MapGenerator to get empirical data to test your hypothesis. 
+Running the Benchmark class once should be sufficient to generate quality data. 
+Running Benchmark will likely take a very long time especially for BruteGenerator, so be patient. 
+Compare your empirical results to your hypothesis.
+RESULTS for MapGenerator:
+
+Varying k, using random text length 100 and file length 152145 (alice.txt)
+k: 1 	 mean: 0.000118 	 stddev 0.000000 	 ci: [0.000118, 0.000118]
+k: 2 	 mean: 0.000081 	 stddev 0.000000 	 ci: [0.000081, 0.000081]
+k: 3 	 mean: 0.000085 	 stddev 0.000000 	 ci: [0.000085, 0.000085]
+k: 4 	 mean: 0.000081 	 stddev 0.000000 	 ci: [0.000081, 0.000081]
+k: 5 	 mean: 0.000063 	 stddev 0.000000 	 ci: [0.000063, 0.000063]
+k: 6 	 mean: 0.000075 	 stddev 0.000000 	 ci: [0.000075, 0.000075]
+k: 7 	 mean: 0.000080 	 stddev 0.000000 	 ci: [0.000080, 0.000080]
+k: 8 	 mean: 0.000055 	 stddev 0.000000 	 ci: [0.000055, 0.000055]
+k: 9 	 mean: 0.000065 	 stddev 0.000000 	 ci: [0.000065, 0.000065]
+k: 10 	 mean: 0.000057 	 stddev 0.000000 	 ci: [0.000057, 0.000057]
+k: 11 	 mean: 0.000053 	 stddev 0.000000 	 ci: [0.000053, 0.000053]
+k: 12 	 mean: 0.000051 	 stddev 0.000000 	 ci: [0.000051, 0.000051]
+k: 13 	 mean: 0.000055 	 stddev 0.000000 	 ci: [0.000055, 0.000055]
+k: 14 	 mean: 0.000047 	 stddev 0.000000 	 ci: [0.000047, 0.000047]
+k: 15 	 mean: 0.000044 	 stddev 0.000000 	 ci: [0.000044, 0.000044]
+
+Varying text length, using k 5 and file length 152145 (alice.txt)
+text length: 20 	 mean: 0.000016 	 stddev: 0.000000 	 ci: [0.000016, 0.000016]
+text length: 40 	 mean: 0.000030 	 stddev: 0.000000 	 ci: [0.000030, 0.000030]
+text length: 60 	 mean: 0.000048 	 stddev: 0.000000 	 ci: [0.000048, 0.000048]
+text length: 80 	 mean: 0.000072 	 stddev: 0.000000 	 ci: [0.000072, 0.000072]
+text length: 100 	 mean: 0.000077 	 stddev: 0.000000 	 ci: [0.000077, 0.000077]
+text length: 120 	 mean: 0.000131 	 stddev: 0.000000 	 ci: [0.000131, 0.000131]
+text length: 140 	 mean: 0.000120 	 stddev: 0.000000 	 ci: [0.000120, 0.000120]
+text length: 160 	 mean: 0.000115 	 stddev: 0.000000 	 ci: [0.000115, 0.000115]
+text length: 180 	 mean: 0.000136 	 stddev: 0.000000 	 ci: [0.000136, 0.000136]
+text length: 200 	 mean: 0.000153 	 stddev: 0.000000 	 ci: [0.000153, 0.000153]
+text length: 220 	 mean: 0.000194 	 stddev: 0.000000 	 ci: [0.000194, 0.000194]
+text length: 240 	 mean: 0.000165 	 stddev: 0.000000 	 ci: [0.000165, 0.000165]
+text length: 260 	 mean: 0.000205 	 stddev: 0.000000 	 ci: [0.000205, 0.000205]
+text length: 280 	 mean: 0.000211 	 stddev: 0.000000 	 ci: [0.000211, 0.000211]
+text length: 300 	 mean: 0.000212 	 stddev: 0.000000 	 ci: [0.000212, 0.000212]
+
+Varying file length, using k 5 and text length 100
+unique keys: 2694 	 mean: 0.000017 	 stddev 0.000000 	 ci: [0.000017, 0.000017]
+unique keys: 2982 	 mean: 0.000017 	 stddev 0.000000 	 ci: [0.000017, 0.000017]
+unique keys: 3939 	 mean: 0.000016 	 stddev 0.000000 	 ci: [0.000016, 0.000016]
+unique keys: 7499 	 mean: 0.000022 	 stddev 0.000000 	 ci: [0.000022, 0.000022]
+unique keys: 7777 	 mean: 0.000040 	 stddev 0.000000 	 ci: [0.000040, 0.000040]
+unique keys: 28046 	 mean: 0.000084 	 stddev 0.000000 	 ci: [0.000084, 0.000084]
+unique keys: 35722 	 mean: 0.000075 	 stddev 0.000000 	 ci: [0.000075, 0.000075]
+unique keys: 41306 	 mean: 0.000078 	 stddev 0.000000 	 ci: [0.000078, 0.000078]
+unique keys: 68922 	 mean: 0.000086 	 stddev 0.000000 	 ci: [0.000086, 0.000086]
+unique keys: 143749  mean: 0.000111 	 stddev 0.000000 	 ci: [0.000111, 0.000111]
+
+RESULTS for BruteGenerator:
+
+Varying k, using random text length 100 and file length 152145 (alice.txt)
+k: 1 	 mean: 1.006015 	 stddev 0.002557 	 ci: [1.001003, 1.011028]
+k: 2 	 mean: 0.977698 	 stddev 0.000583 	 ci: [0.976555, 0.978841]
+k: 3 	 mean: 1.065602 	 stddev 0.000558 	 ci: [1.064508, 1.066697]
+k: 4 	 mean: 1.120174 	 stddev 0.000246 	 ci: [1.119692, 1.120656]
+k: 5 	 mean: 1.242754 	 stddev 0.004259 	 ci: [1.234406, 1.251103]
+k: 6 	 mean: 1.386546 	 stddev 0.006699 	 ci: [1.373416, 1.399676]
+k: 7 	 mean: 1.460385 	 stddev 0.003997 	 ci: [1.452552, 1.468218]
+k: 8 	 mean: 1.501678 	 stddev 0.005171 	 ci: [1.491543, 1.511812]
+k: 9 	 mean: 1.590711 	 stddev 0.002270 	 ci: [1.586262, 1.595161]
+k: 10 	 mean: 1.633233 	 stddev 0.000384 	 ci: [1.632480, 1.633986]
+k: 11 	 mean: 1.766699 	 stddev 0.002197 	 ci: [1.762393, 1.771004]
+k: 12 	 mean: 1.876961 	 stddev 0.005412 	 ci: [1.866353, 1.887568]
+k: 13 	 mean: 1.943742 	 stddev 0.001581 	 ci: [1.940644, 1.946840]
+k: 14 	 mean: 2.102434 	 stddev 0.008286 	 ci: [2.086193, 2.118676]
+k: 15 	 mean: 2.199424 	 stddev 0.006983 	 ci: [2.185737, 2.213110]
+
+Varying text length, using k 5 and file length 152145 (alice.txt)
+text length: 20 	 mean: 0.246904 	 stddev: 0.000017 	 ci: [0.246870, 0.246938]
+text length: 40 	 mean: 0.493655 	 stddev: 0.000244 	 ci: [0.493177, 0.494133]
+text length: 60 	 mean: 0.725618 	 stddev: 0.000426 	 ci: [0.724783, 0.726452]
+text length: 80 	 mean: 0.994123 	 stddev: 0.001422 	 ci: [0.991335, 0.996911]
+text length: 100 	 mean: 1.249902 	 stddev: 0.003221 	 ci: [1.243589, 1.256215]
+text length: 120 	 mean: 1.482601 	 stddev: 0.002350 	 ci: [1.477995, 1.487208]
+text length: 140 	 mean: 1.730062 	 stddev: 0.002403 	 ci: [1.725352, 1.734772]
+text length: 160 	 mean: 1.993465 	 stddev: 0.004067 	 ci: [1.985495, 2.001436]
+text length: 180 	 mean: 2.205191 	 stddev: 0.002670 	 ci: [2.199958, 2.210423]
+text length: 200 	 mean: 2.458111 	 stddev: 0.005554 	 ci: [2.447225, 2.468998]
+text length: 220 	 mean: 2.748890 	 stddev: 0.014924 	 ci: [2.719638, 2.778142]
+text length: 240 	 mean: 2.935847 	 stddev: 0.020005 	 ci: [2.896638, 2.975057]
+text length: 260 	 mean: 3.193240 	 stddev: 0.022102 	 ci: [3.149920, 3.236559]
+text length: 280 	 mean: 3.543072 	 stddev: 0.061701 	 ci: [3.422138, 3.664006]
+text length: 300 	 mean: 3.719289 	 stddev: 0.033431 	 ci: [3.653764, 3.784814]
+
+Varying file length, using k 5 and text length 100
+unique keys: 4439 	 mean: 0.035457 	 stddev 0.000043 	 ci: [0.035373, 0.035541]
+unique keys: 4823 	 mean: 0.037257 	 stddev 0.000001 	 ci: [0.037256, 0.037258]
+unique keys: 5953 	 mean: 0.045933 	 stddev 0.000001 	 ci: [0.045932, 0.045935]
+unique keys: 12946 	 mean: 0.101142 	 stddev 0.000007 	 ci: [0.101129, 0.101155]
+unique keys: 13095 	 mean: 0.104676 	 stddev 0.000005 	 ci: [0.104667, 0.104685]
+unique keys: 82131 	 mean: 0.652027 	 stddev 0.000040 	 ci: [0.651949, 0.652104]
+unique keys: 152141  mean: 1.276767 	 stddev 0.005843 	 ci: [1.265315, 1.288219]
+unique keys: 153080  mean: 1.221776 	 stddev 0.000608 	 ci: [1.220584, 1.222967]
+unique keys: 496756  mean: 4.102932 	 stddev 0.028266 	 ci: [4.047531, 4.158332]
+unique keys: 4345014 mean: 35.596416 	 stddev 0.440060 	 ci: [34.733899, 36.458933]
+
+K-Value Length:
+The above results generated using Benchmark, confirm that as k increases, the time it 
+takes MapGenerator to run decreases. However, the decrease for MapGenerator is 
+only 0.000074 seconds from a k-value of 1 to a k-value of 15, which is fairly small and
+insignificant. Surprisingly, we see that as the k-value increases, the running time
+for BruteGenerator actually increases. We see an increase of 1.193409 seconds from a k-value
+of 1 to a k-value of 15. A way to justify this occurrence is to think of the time it takes to scan
+through the NGrams each time we use indexof(NGram, starting position) to ensure that the
+NGram we are looking at is the same one that we are comparing it to. Thus, the longer this NGram
+(determined by the k-value) the longer it takes to compare it to the seed we are using.
+
+The plots help us to see the relationships between the k-values and the runtimes. It appears that
+the MapGenerator data most closely follows a lognormal trendline. Thus we can say that the big-o 
+notation is closest to O(ln(n)). When the BruteGenerator data is fitted with a trend line, a 
+polynomial line of degree 2 fits best making the big-o notation closest to O(n^2).
+
+Training Text Length:
+The above results generated using Benchmark, confirm that as the training text length increases,
+the time it takes MapGenerator and Brute Generator to run also increases. However, the increase 
+for MapGenerator is only 0.000196 seconds from a training text length of 20 to a training text
+length of 300, which is fairly small and insignificant. Unlike with the above k-value results,
+Benchmark confirmed that the running time for BruteGenerator increases as the training text 
+length increases. We see an increase of 3.472385 seconds from a training text length of 20 to 
+a training text length of 300, which is a significant increase as our initial value is 0.246904 
+seconds and our final value is 3.719289 seconds, over 15 times the amount of time it took the 
+initial training text to run. Thus our hypothesis proved correct with both times increasing,
+but with the BruteGenerator time increasing significantly more.
+
+The plots help us to see the relationships between the training text lengths and the runtimes. 
+It appears that the MapGenerator data most closely follows a trendline with x^(0.9704) because 
+the R^2 value is closest to one, however, this value is so close to x^1 and the R^2 value is only
+a slightly closer to 1 than the linear fit, that we could approximate this fit to a linear big-o
+notation with the big-o notation being O(n). When the BruteGenerator data is fitted with a trend line,
+surprisingly we see a similar situation with the best fit being a line with x^(1.0032) which is so 
+close to x^1 that we can approximate it to a linear fit. Thus we can say that the big-o notation 
+is closest to O(n). Thus does not completely agree with my hypothesis because I expected the big-o
+notation for BruteGenerator for this change to be greater.
+
+Random Text Length:
+The above results generated using Benchmark, confirm that as the length of the random text increases,
+the time it takes MapGenerator and Brute Generator to run also increases. However, the increase 
+for MapGenerator is only 0.000094 seconds from a random text length of 2694 unique keys to a random text
+length of 143749 unique keys, which is fairly small and insignificant. Benchmark also confirmed that 
+the running time for BruteGenerator increases as the length of the random text increases. We see an 
+increase of 35.56096 seconds from a random text length of 4439 unique keys to a random text
+length of 4345014 unique keys, which is a huge increase in time, however it is important to note the
+two different range of unique keys. BruteGenerator got up to 4345014 keys while MapGenerator only did
+143748 unique keys, but when we examine the value for 152141 unique keys from the BruteGenerator
+results(the closes number of keys to 143749) the time is 1.276767, which is still an increase of
+over one second rather than the increase from 3939 to 14379 in the MapGenerator that was 0.000095.
+Thus our hypothesis proved correct with both times increasing, but with the BruteGenerator time 
+increasing significantly more.
+
+The plots help us to see the relationships between the random text lengths and the runtimes. 
+It appears that the MapGenerator data most closely follows a logarithmic trendline which means
+we could then approximate the big-o notation to O(ln(n)). The BruteGenerator data has a final point
+where the random text length is equal to 4,345,014 and the Run Time is 35 seconds. This point is such
+an extreme outlier that it plots both a linear trendline and a trendline with x^2 as having an R^2 
+value of 1. Thus to get a more accurate trendline, I ommitted the final data point from my trendline
+calculation. When doing this, a more accurate trendline can be fitted, from which we received the results
+that the best fitted line is has x^1.012, which we can more closely approximate to x^1 and conclude a 
+big-o notation closest to O(n). Thus my hypothesis that the BruteGenerator big-o notation would be greater,
+was correct.
+
+
+Part B: HashMap VS. TreeMap
+In these questions, the goal is to compare the different kinds of Maps, so you will only run the 
+MapGenerator through Benchmark. You will examine the performance of HashMap both with a good hash
+function and bad one, and a TreeMap on different number of keys from the training text. Note that
+for this section only data from the last segment of Benchmark output is relevant.
+
+3. Form a hypothesis of how the number of keys will affect the runtime of MapGenerator when using the 
+following types of Maps. Use big-O notation and explain your reasoning by referencing Map 
+implementations and collisions.
+
+a)HashMap with the default hashCode function (always return a constant)
+	A HashMap with the default HashCode function that always returns a constant will result in more
+	collisions in our Markov assignment because certain NGrams will return the same hashcode
+	even if they are different NGrams such as "abc" and "cba." When the same hashcode is 
+	returned for NGrams that are in fact different, we will run into many collisions. The more collisions
+	we have, the less effective our HashMap becomes, and the more time it takes to run our code. For 
+	example, in the best case situation with no collisions we would have O(1), but with the default 
+	hashCode, given our problem, we are bound to run into collisions which will only increase the 
+	big-o notation because Java then has to take the time to resolve the collisions which slows down
+	the process and the problem we are trying to complete.
+	Therefore, using this type of Map, as the number of keys increase, the runtime will simply
+	increase because it will increase the chance of more collisions and thus increase the time
+	needed to resolve the collisions.
+b)HashMap with the hashCode function you wrote
+	With the Hashmap that we wrote, as we hypothesized above, the increase in keys will have a very
+	small effect on the runtime of MapGenerator, because our hashcode is designed to avoid any
+	collisions and does not return a constant. Thus, we do not need to increase the time to 
+	resolve any collisions. Therefore, the increase in the number of keys will only increase
+	our runtime by a very insignificant amount.
+c)TreeMap
+	As we discussed in lecture, TreeMap can be especially useful when the order in which you are 
+	storing keys and values is important, however it is also considerable slower than HashMap.
+	For our purposes for the Markov assignment, the order in which we store our keys and 
+	values is not important to the problem, and thus it would not make sense to use TreeMap 
+	over HashMap, because it is by default slower. Increasing the number of keys would
+	only work to make TreeMap even slower because it will have more keys that it needs to keep
+	in order, thus we would not want to use TreeMap for this assignment.
+
+4. Run the Benchmark class on MapGenerator class and examine the data from the final table to get 
+empirical data to test your hypothesis. Running the Benchmark class once should be sufficient. 
+Compare your empirical results to your hypothesis.
+
+For Part a) to examine my hypothesis, I changed the hashcode() in my NGram to deliver the constant 7 each
+time before running Benchmark with MapGenerator.
+Results:
+
+
+For Part b) which used the HashMap we wrote, we can use the results we calculated above and the 
+plot we created for the below results. From this plot, we approximated the big-o notation was 
+O(ln(n)).
+
+Results:
+Varying file length, using k 5 and text length 100
+unique keys: 2694 	 mean: 0.000017 	 stddev 0.000000 	 ci: [0.000017, 0.000017]
+unique keys: 2982 	 mean: 0.000017 	 stddev 0.000000 	 ci: [0.000017, 0.000017]
+unique keys: 3939 	 mean: 0.000016 	 stddev 0.000000 	 ci: [0.000016, 0.000016]
+unique keys: 7499 	 mean: 0.000022 	 stddev 0.000000 	 ci: [0.000022, 0.000022]
+unique keys: 7777 	 mean: 0.000040 	 stddev 0.000000 	 ci: [0.000040, 0.000040]
+unique keys: 28046 	 mean: 0.000084 	 stddev 0.000000 	 ci: [0.000084, 0.000084]
+unique keys: 35722 	 mean: 0.000075 	 stddev 0.000000 	 ci: [0.000075, 0.000075]
+unique keys: 41306 	 mean: 0.000078 	 stddev 0.000000 	 ci: [0.000078, 0.000078]
+unique keys: 68922 	 mean: 0.000086 	 stddev 0.000000 	 ci: [0.000086, 0.000086]
+unique keys: 143749  mean: 0.000111 	 stddev 0.000000 	 ci: [0.000111, 0.000111]
